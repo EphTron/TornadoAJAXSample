@@ -15,13 +15,11 @@
 # under the License.
 
 import logging
-import tornado.auth
 import tornado.escape
 import tornado.ioloop
 import tornado.options
 import tornado.web
 import os.path
-import uuid
 import json
 import pprint
 
@@ -37,8 +35,7 @@ class Application(tornado.web.Application):
         ]
         settings = dict(
             debug=True,
-            template_path=os.path.join(os.path.dirname(__file__), "templates"),
-            static_path=os.path.join(os.path.dirname(__file__), "static")
+            template_path=os.path.join(os.path.dirname(__file__), "templates")
         )
         tornado.web.Application.__init__(self, handlers, **settings)
 
@@ -59,8 +56,6 @@ class TestHandler(tornado.web.RequestHandler):
 
         self.write(json.dumps(example_response))
 
-
-
     def post(self):
 
         jsonobj = json.loads(self.request.body)
@@ -80,8 +75,6 @@ class TestHandler(tornado.web.RequestHandler):
 
         self.write(json.dumps(response_to_send))
         
-
-
 def main():
     tornado.options.parse_command_line()
     app = Application()
